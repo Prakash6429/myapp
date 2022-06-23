@@ -6,24 +6,30 @@ export default function TextForm(props) {
         // console.log("Uppercase was clicked: " + text);
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("converted to upperCase!", "success")
     }
 
     const handleLoClick = ()=>{
         // console.log("Uppercase was clicked: " + text);
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("converted to lowerCase!", "success")
     }
 
     const handleClear = ()=>{
         // console.log("Uppercase was clicked: " + text);
         let newText = "";
         setText(newText);
+        props.showAlert("screen cleared", "danger")
+
     }
 
     const speak = () => {
         let msg = new SpeechSynthesisUtterance();
         msg.text = text;
         window.speechSynthesis.speak(msg);
+        props.showAlert("speech", "warning")
+
       }
 
     const handleOnChange = (event)=>{
@@ -35,11 +41,14 @@ export default function TextForm(props) {
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        props.showAlert("copied to clipboard!", "info")
+
     }
 
     const handleExtraSpaces=()=>{
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "))
+        props.showAlert("removed extra spaces!", "secondary")
     }
 
 
@@ -55,8 +64,8 @@ export default function TextForm(props) {
             </div>
             <button className="btn btn-primary mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
             <button className="btn btn-primary mx-1" onClick={handleLoClick}>Convert to Lowercase</button>
-            <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
-            <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
+            <button className="btn btn-secondary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+            <button className="btn btn-info mx-1" onClick={handleCopy}>Copy Text</button>
             <button className="btn btn-danger mx-1" onClick={handleClear}>Clear Screen</button>
             <button className="btn btn-warning mx-1" onClick={speak}>Speak</button>
 
